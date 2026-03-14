@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "35996124346",
+    "firebase_url": "https://mesh-net-6f9a0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mesh-net-6f9a0",
+    "storage_bucket": "mesh-net-6f9a0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35996124346:android:d5342c06b2edaca44aee83",
+        "android_client_info": {
+          "package_name": "com.crowdlink.crowd_link"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRIyW4AIbQSToojaH4UtXyLI0_inpRu1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

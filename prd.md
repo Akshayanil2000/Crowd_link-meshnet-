@@ -18,68 +18,64 @@ The app leverages **Mesh Networking** technology to create a self-healing, peer-
 ## 3. Technology Stack
 
 ### Core Frameworks
-- **Frontend**: Flutter (Dart)
-- **Local P2P API**: Google's Nearby Connections API
-- **Global Identity & Sync**: Firebase 
+- **Frontend**: Flutter (Dart) - for cross-platform mobile development (Android & iOS).
+- **Backend (Cloud)**: Firebase (Core, Auth, Realtime Database) - used for global identity, synchronization when online, and friend discovery.
+- **Local Connectivity**: Google's **Nearby Connections API** - the backbone for peer-to-peer discovery and data transfer without internet.
 
-### Key Dependencies
-- `nearby_connections` (Local networking)
-- `firebase_auth` (User authentication)
-- `firebase_database` (Global sync & Friend discovery)
-- `provider` (State management)
-- `google_fonts` (Typography)
-- `qr_flutter` (Identity generation)
-- `mobile_scanner` (Mesh ID linking)
-- `uuid` (Unique node tracking)
-- `permission_handler` (Bluetooth/WiFi/Location permissions)
+### Key Libraries & Packages
+- **Connectivity**: `nearby_connections` (Mesh networking backbone).
+- **Identity**: `firebase_auth`, `firebase_database`, `uuid`.
+- **UI/UX**: `google_fonts`, `qr_flutter` (QR generation), `mobile_scanner` (QR scanning).
+- **State Management**: `provider`.
+- **Utilities**: `permission_handler` (for Bluetooth/Location/WiFi permissions required for mesh).
 
 ---
 
-## 4. Design Guidelines
+## 4. Key Features
 
-### Aesthetic
-- **Theme**: Premium Dark / Cyberpunk Minimalist
-- **Core Principle**: Deep, high-contrast interfaces with subtle glassmorphism and micro-animations.
+### 4.1. Mesh Connectivity & Discovery
+- **Node-to-Node Discovery**: Automatic identification of nearby devices running Mesh-Net.
+- **Network Health Monitoring**: Real-time visualization of signal strength, nearby device count, and network latency.
+- **Internet Gateway**: Ability for a node with internet access to share its connection as a "gateway" for others in the mesh.
 
-### Color Palette
-- **Background**: Pitch Black (`#000000`)
-- **Surfaces**: Deep Charcoal (`#141414`)
-- **Primary Accent**: Vibrant Neon Green (`#00FC82`) - used for active states, highlights, and primary buttons.
-- **Inactive/Muted**: Slate Grey (`#8E8E93` or `Colors.grey[500]`)
+### 4.2. Identity & Social Networking
+- **Mesh ID System**: Every user receives a unique, short-form Mesh ID (e.g., `MN-A3F9K2`) tied to their Firebase account.
+- **QR Interaction**: Peer discovery via scanning/sharing QR codes for instant friend adding.
+- **Profile Management**: Firebase-backed user profiles including names and Mesh IDs.
 
-### Typography
-- **Primary Font**: `Inter` (via Google Fonts).
-- **Styling**: Clean, legible, with distinct font weights for headers (Bold/600+) versus body text (Regular/400).
+### 4.3. Communication
+- **Direct Messaging**: One-on-one encrypted/private messaging between linked peers.
+- **Mesh Broadcasting**: Sending announcements or alerts to every node within range of the mesh.
+- **Offline Syncing**: Messages are queued and delivered as soon as a path (direct or across nodes) becomes available.
 
----
-
-## 5. System Architecture
-Modular Flutter architecture separated by domain:
-- `lib/main.dart`: App entry point
-- `lib/screens/`: UI Views (HomeScreen, OverviewScreen, ChatScreen, PrivateMessageScreen, ActivityScreen)
-- `lib/widgets/`: Reusable components (PulseDot, MeshNodeIcon, etc.)
-- `lib/theme/`: Constants and coloring (AppColors)
-- `lib/services/`: API layers (NearbyConnections networking, Firebase)
-- `lib/providers/`: Global state management
-- `lib/models/`: Dart data structures (Message, User, Node)
+### 4.4. Safety & Utilities
+- **SOS Alerts**: A high-priority broadcast feature for emergency situations.
+- **Location Sharing**: Peer-to-peer location sharing within the mesh (even without GPS satellites/cellular data, using relative positioning or mesh gateways).
 
 ---
 
-## 6. Core Features Roadmap
+## 5. User Interface (UI) Design
+The app follow a **"Premium Dark"** aesthetic:
+- **Primary Brand Color**: Vibrant Neon Green (`#00FC82`).
+- **Surface Colors**: Deep Charcoal (`#141414`) and Pitch Black (`#000000`).
+- **Aesthetics**: Glassmorphism, subtle micro-animations (pulsing search icons), and high-contrast status indicators.
+- **Typography**: **Inter** (via Google Fonts).
+- **Navigation**: Minimalist AppBar with large typography and interactive cards.
 
-### Phase 1: Frontend Infrastructure (Current)
-- [x] Base Application Setup
-- [x] Navigation Scaffold (Bottom Glass Bar)
-- [x] Network Overview Dashboard
-- [x] Chat Hub Interface
-- [x] Private Direct Messaging View
-- [ ] Activity / Notifications Feed
+---
 
-### Phase 2: Mesh Connectivity
-- Setup `nearby_connections` logic to advertise and discover devices.
-- Implement the automated handshaking sequence for secure offline P2P bridging.
-- Broadcast message dispatching.
+## 6. Architecture & Entry Point
+The project follows a modular Flutter architecture:
+- **Entry Point**: `lib/main.dart` (Initializes Firebase and sets context for the `CrowdLinkApp`).
+- **`lib/screens/`**: UI-focused widgets and screen layouts (e.g., `mesh_screen.dart`, `chat_screen.dart`, `home_screen.dart`).
+- **`lib/services/`**: Logical abstractions for Firebase (`auth_service.dart`) and eventually the Mesh Network controller.
+- **`lib/models/`**: Data structures for Users, Messages, and Mesh Nodes.
+- **`lib/providers/`**: State management logic using the Provider pattern.
 
-### Phase 3: Firebase Integration
-- Cloud syncing of offline messages when an Internet Gateway node is found.
-- Global identity tracking for friends.
+---
+
+## 7. Future Roadmap
+- **End-to-End Encryption**: Implementing Signal Protocol-like encryption for all mesh traffic.
+- **Offline File Sharing**: Transferring large assets (photos, documents) across the mesh.
+- **Multi-Hop Relay**: Dynamic routing for messages across multiple intermediate devices.
+- **Anonymous Mode**: Enabling mesh communication without a formal Firebase account for maximum privacy.
